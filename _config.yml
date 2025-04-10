@@ -34,9 +34,12 @@ kramdown:
   syntax_highlighter: rouge
 
 # Build settings
-theme: minima
+theme: jekyll-theme-minimal
 plugins:
   - jekyll-feed
+
+show_downloads: true
+google_analytics:
 
 # Exclude from processing.
 # The following items will not be processed, by default.
