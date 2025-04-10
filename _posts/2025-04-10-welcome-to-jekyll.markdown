@@ -24,6 +24,35 @@ print_hi('Tom')
 
 Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
 
+# Test
+
+Binomial Theorem
+----------------
+
+$$ (x+y)^n = \sum_{k=0}^n {n \choose k} x^{n - k} y^k. $$
+
+
+Exponential Function
+--------------------
+
+$$ e^x = \lim_{n \to \infty} \left( 1+ \frac{x}{n} \right)^n. $$
+
+
+Cauchy-Schwarz Inequality
+-------------------------
+
+$$
+  \left( \sum_{k=1}^n a_k b_k \right)^2 \leq
+  \left( \sum_{k=1}^n a_k^2 \right)
+  \left( \sum_{k=1}^n b_k^2 \right).
+$$
+
+
+Bayes' Theorem
+--------------
+
+$$ P(A \mid B) = \frac{P(B \mid A) \, P(A)}{P(B)}. $$
+
 [jekyll-docs]: https://jekyllrb.com/docs/home
 [jekyll-gh]:   https://github.com/jekyll/jekyll
 [jekyll-talk]: https://talk.jekyllrb.com/
