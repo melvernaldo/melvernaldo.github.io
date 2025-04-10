@@ -37,7 +37,6 @@ kramdown:
 theme: minima
 plugins:
   - jekyll-feed
-  - jektex
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -59,10 +58,3 @@ plugins:
 #   - vendor/gems/
 #   - vendor/ruby/
 
-jektex:
-  cache_dir: ".jektex-cache"
-  ignore: ["*.xml", "README.md"]
-  silent: false
-  macros:
-    - ["\\Q", "\\mathbb{Q}"]
-    - ["\\C", "\\mathbb{C}"]
