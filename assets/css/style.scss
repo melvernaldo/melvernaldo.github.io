@@ -1,7 +1,72 @@
 ---
-# Only the main Sass file needs front matter (the dashes are enough)
 ---
+@import "minima";  /* Import the Minima theme (or a reset) to get started */
 
-@import
-  "minima/skins/{{ site.minima.skin | default: 'classic' }}",
-  "minima/initialize";
+.site-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+nav {
+  margin-bottom: 1rem;
+  a {
+    margin-right: 1rem;
+    color: #0078d7; /* Example link color */
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.content {
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  /* Add more styles as needed, following the structure of the example site */
+}
+#search-container {
+  float: right;
+  margin-top: -2.5rem; /* Adjust as necessary */
+}
+
+#search-input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 200px;
+}
+
+#search-results {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-top: none;
+  width: 200px;
+  position: absolute;
+  background-color: white;
+  z-index: 1000;
+}
+
+#search-results li {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+#search-results li:hover {
+  background-color: #f0f0f0;
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    <link rel="canonical" href="{{ page.url | absolute_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title }} | Feed" href="{{ '/feed.xml' | relative_url }}">
+    <script src="{{ '/assets/js/search.js' | relative_url }}"></script> {% include head_custom.html %}
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+            <nav>
+                <a href="{{ '/about/' | relative_url }}">About</a>
+                <a href="{{ '/physics/' | relative_url }}">Physics</a>
+                <a href="{{ '/mathematics/' | relative_url }}">Mathematics</a>
+                </nav>
+             <div id="search-container">
+               <input type="text" id="search-input" placeholder="Search...">
+               <ul id="search-results"></ul>
+             </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <main class="content">
+            {{ content }}
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
