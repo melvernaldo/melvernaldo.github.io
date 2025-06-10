@@ -1,8 +1,12 @@
-title: Just the Docs Template
-description: A starter template for a Jeykll site using the Just the Docs theme!
+title: Melvernaldo
+description: Knowledge base for Physics and Mathematics
 theme: just-the-docs
 
-url: https://just-the-docs.github.io
+url: https://melvernaldo.github.io
 
 aux_links:
-  Template Repository: https://github.com/just-the-docs/just-the-docs-template
+  About: /about.html
+  GitHub Repository: https://github.com/melvernaldo/melvernaldo.github.io
+
+markdown: kramdown
+mathjax: true
