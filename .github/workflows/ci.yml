@@ -21,4 +21,4 @@ jobs:
       # - name: Install bundle
       #   run: bundle install
       - name: Build with Jekyll
-        run: bundle exec jekyll build
+        run: bundle exec jekyll build rake search:init
