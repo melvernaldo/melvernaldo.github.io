@@ -8,5 +8,3 @@ aux_links:
   About: /about.html
   GitHub Repository: https://github.com/melvernaldo/melvernaldo.github.io
 
-markdown: kramdown
-mathjax: true
