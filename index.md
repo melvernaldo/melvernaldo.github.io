@@ -7,9 +7,9 @@ nav_exclude: true
 
 # [**melvernaldo.github.io**](./)
 
-This website is my personal knowledge base for physics and mathematics. In addition to CIE IGCSE and A Level of physics and maths, I am aiming to also include higher level concepts of the subjects as well.
+This website is my personal knowledge base for physics and mathematics. In addition to CIE IGCSE and A Level of physics and maths, I am aiming to also include higher level concepts of the subjects, maths visualization web apps, and physics simulation web apps as well.
 
-This site is still a ***work-in-progress*** and will be updated as time goes on to include more articles.
+This site is still a ***work-in-progress*** and will be updated as time goes on to include more articles and web apps.
 
 ## Navigating this site
 

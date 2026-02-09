@@ -1,0 +1,475 @@
+---
+layout: app
+title: Diffraction Grating Spectrometer
+parent: Testing Web Apps
+nav_order: 1
+back_to_top: true
+back_to_top_text: "Back to top"
+---
+
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diffraction Grating Spectrometer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    
+    .spectral-line {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+    
+    .lamp-glow {
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+    
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      background: transparent;
+      cursor: pointer;
+      height: 8px;
+      border-radius: 4px;
+      background: #1e293b;
+      border: 1px solid #334155;
+    }
+    
+    input[type="range"]::-webkit-slider-track {
+      background: #1e293b;
+      height: 8px;
+      border-radius: 4px;
+      border: 1px solid #334155;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(135deg, #f472b6, #a855f7);
+      border-radius: 50%;
+      margin-top: -6px;
+      box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+    }
+    
+    input[type="range"]::-moz-range-track {
+      background: #1e293b;
+      height: 8px;
+      border-radius: 4px;
+      border: 1px solid #334155;
+    }
+    
+    input[type="range"]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(135deg, #f472b6, #a855f7);
+      border-radius: 50%;
+      border: none;
+      box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+    }
+
+    .scrollable-right {
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .scrollable-right::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .scrollable-right::-webkit-scrollbar-track {
+      background: rgba(51, 65, 85, 0.3);
+      border-radius: 3px;
+    }
+
+    .scrollable-right::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.5);
+      border-radius: 3px;
+    }
+
+    .scrollable-right::-webkit-scrollbar-thumb:hover {
+      background: rgba(148, 163, 184, 0.7);
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="h-full bg-slate-950 text-slate-100 overflow-auto">
+  <div id="app-wrapper" class="w-full h-full flex flex-col"><!-- Header -->
+   <header class="text-center px-4 md:px-6 py-3 md:py-4 border-b border-slate-800">
+    <h1 id="main-title" class="text-lg md:text-xl font-bold bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent mb-1">Diffraction Grating Spectrometer</h1>
+    <p id="instruction-text" class="text-slate-400 text-xs md:text-sm">Select a gas lamp and adjust the viewing angle to observe spectral lines</p>
+   </header><!-- Main Grid -->
+   <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden"><!-- Left Panel: Controls -->
+    <div class="border-r border-slate-800 p-4 md:p-6 space-y-4 flex flex-col overflow-y-auto"><!-- Gas Selection -->
+     <div class="bg-slate-900 rounded-xl p-4 border border-slate-800">
+      <h2 class="text-sm font-semibold text-slate-300 mb-3 uppercase tracking-wider">Gas Lamp</h2>
+      <div class="flex gap-2"><button id="btn-hydrogen" class="flex-1 py-3 px-4 rounded-lg font-medium transition-all duration-300 bg-gradient-to-r from-pink-600 to-rose-600 text-white shadow-lg shadow-pink-600/30"> <span class="block text-lg">H</span> <span class="text-xs opacity-80">Hydrogen</span> </button> <button id="btn-helium" class="flex-1 py-3 px-4 rounded-lg font-medium transition-all duration-300 bg-slate-800 text-slate-400 hover:bg-slate-700"> <span class="block text-lg">He</span> <span class="text-xs opacity-80">Helium</span> </button>
+      </div>
+     </div><!-- Angle Control -->
+     <div class="bg-slate-900 rounded-xl p-4 border border-slate-800">
+      <h2 class="text-sm font-semibold text-slate-300 mb-4 uppercase tracking-wider">Diffraction Angle</h2><input type="range" id="angle-slider" min="100" max="300" value="450" step="1" class="w-full mb-4">
+      <div class="text-center"><span id="angle-display" class="mono text-4xl font-bold text-purple-400">45.0°</span>
+      </div>
+     </div><!-- Grating Parameters -->
+     <div class="bg-slate-900 rounded-xl p-4 border border-slate-800">
+      <h2 class="text-sm font-semibold text-slate-300 mb-3 uppercase tracking-wider">Grating</h2>
+      <div class="space-y-2 text-sm">
+       <div class="flex justify-between"><span class="text-slate-500">Lines per mm:</span> <span class="mono text-cyan-400">600</span>
+       </div>
+       <div class="flex justify-between"><span class="text-slate-500">Spacing (d):</span> <span class="mono text-cyan-400">1667 nm</span>
+       </div>
+       <div class="flex justify-between"><span class="text-slate-500">Order (m):</span> <span class="mono text-cyan-400">1</span>
+       </div>
+      </div>
+     </div><!-- Formula -->
+     <div class="bg-gradient-to-r from-purple-900/30 to-pink-900/30 rounded-xl p-4 border border-purple-500/20">
+      <h2 class="text-sm font-semibold text-purple-300 mb-2 uppercase tracking-wider">Equation</h2>
+      <div class="text-center py-2"><span class="text-lg text-white font-light">d · sin(θ) = m · λ</span>
+      </div>
+     </div><!-- Calculator -->
+     <div class="bg-slate-900 rounded-xl p-4 border border-slate-800 mt-auto">
+      <h2 class="text-sm font-semibold text-slate-300 mb-3 uppercase tracking-wider">Calculator</h2>
+      <div class="space-y-3">
+       <div><label for="calc-angle" class="text-xs text-slate-400 block mb-1">Angle (°)</label> <input type="number" id="calc-angle" value="20" step="0.1" min="10" max="30" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-slate-100 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500">
+       </div>
+       <div><label class="text-xs text-slate-400 block mb-1">Wavelength (nm)</label>
+        <div id="calc-wavelength" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm text-cyan-400 mono font-semibold">
+         656.3
+        </div>
+       </div>
+       <div class="flex items-center gap-2"><input type="checkbox" id="auto-sync" class="w-4 h-4 accent-purple-500 cursor-pointer"> <label for="auto-sync" class="text-xs text-slate-400 cursor-pointer">Auto Sync</label>
+       </div>
+      </div>
+     </div>
+    </div><!-- Right Panel: Visualization -->
+    <div class="p-4 md:p-6 space-y-4 scrollable-right"><!-- Spectrometer Diagram -->
+     <div class="bg-slate-900 rounded-xl p-4 border border-slate-800">
+      <h2 class="text-sm font-semibold text-slate-300 mb-3 uppercase tracking-wider">Spectrometer Setup</h2>
+      <div class="relative bg-slate-950 rounded-lg overflow-hidden" style="height: 200px;">
+       <svg id="spectrometer-svg" viewbox="0 0 400 180" class="w-full h-full"><defs>
+         <pattern id="grid" width="20" height="20" patternunits="userSpaceOnUse">
+          <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1e293b" stroke-width="0.5" />
+         </pattern>
+         <lineargradient id="lamp-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" id="lamp-stop1" stop-color="#f472b6" />
+          <stop offset="100%" id="lamp-stop2" stop-color="#ec4899" />
+         </lineargradient>
+        </defs> <rect width="400" height="180" fill="url(#grid)" /> <!-- Light source (lamp) --> <g id="lamp-group">
+         <ellipse cx="40" cy="90" rx="25" ry="35" fill="#1e293b" stroke="#334155" stroke-width="2" />
+         <ellipse cx="40" cy="90" rx="15" ry="25" fill="url(#lamp-gradient)" class="lamp-glow" />
+         <text x="40" y="145" text-anchor="middle" fill="#94a3b8" font-size="10" class="mono">
+          LAMP
+         </text>
+        </g> <!-- Collimating slit --> <rect x="85" y="70" width="4" height="40" fill="#475569" /> <rect x="85" y="85" width="4" height="10" fill="#0f172a" /> <text x="87" y="125" text-anchor="middle" fill="#94a3b8" font-size="8" class="mono">
+         SLIT
+        </text> <!-- Light beam to grating --> <line x1="89" y1="90" x2="190" y2="90" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4,4" opacity="0.5" /> <!-- Diffraction grating --> <g>
+         <rect x="188" y="50" width="8" height="80" fill="#1e293b" stroke="#6366f1" stroke-width="2" />
+         <line x1="192" y1="55" x2="192" y2="125" stroke="#6366f1" stroke-width="0.5" stroke-dasharray="2,3" />
+         <text x="192" y="145" text-anchor="middle" fill="#94a3b8" font-size="8" class="mono">
+          GRATING
+         </text>
+        </g> <!-- Diffracted beams --> <g id="diffracted-beams"></g> <!-- Detector/Eye --> <g id="detector-group">
+         <circle cx="350" cy="90" r="20" fill="#1e293b" stroke="#334155" stroke-width="2" />
+         <circle cx="350" cy="90" r="12" fill="#0f172a" />
+         <circle cx="350" cy="90" r="6" fill="#334155" />
+         <text x="350" y="125" text-anchor="middle" fill="#94a3b8" font-size="8" class="mono">
+          DETECTOR
+         </text>
+        </g> <!-- Angle arc --> <g id="angle-arc">
+         <path d="M 196 90 L 230 90" stroke="#64748b" stroke-width="1" stroke-dasharray="3,3" />
+         <path id="angle-path" d="" fill="none" stroke="#a855f7" stroke-width="2" />
+         <text id="angle-label" x="220" y="75" fill="#a855f7" font-size="10" class="mono">
+          θ
+         </text>
+        </g>
+       </svg>
+      </div>
+     </div><!-- Spectrum Display -->
+     <div class="bg-slate-900 rounded-xl p-4 border border-slate-800">
+      <h2 class="text-sm font-semibold text-slate-300 mb-3 uppercase tracking-wider"><span id="spectrum-title">Hydrogen</span> Emission Spectrum</h2><!-- Emission lines display -->
+      <div class="relative h-32 bg-slate-950 rounded-lg overflow-hidden">
+       <div id="spectral-lines" class="absolute inset-0 flex items-center"></div>
+       <div id="viewing-window" class="absolute top-0 bottom-0 w-1 bg-white/80 shadow-lg transition-all duration-300" style="left: 50%;"></div>
+       <div class="absolute left-2 top-2 bottom-2 w-4 flex flex-col justify-between text-xs text-slate-600"><span>↑</span> <span class="mono text-[8px]">I</span>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+    // Spectral data for hydrogen and helium
+    const spectralData = {
+      hydrogen: {
+        name: 'Hydrogen',
+        symbol: 'H',
+        color: '#f472b6',
+        lines: [
+          { wavelength: 656.3, color: '#dc2626', name: 'Red (Hα)', transition: 'n=3 → n=2' },
+          { wavelength: 486.1, color: '#06b6d4', name: 'Cyan (Hβ)', transition: 'n=4 → n=2' },
+          { wavelength: 434.0, color: '#6366f1', name: 'Blue (Hγ)', transition: 'n=5 → n=2' },
+          { wavelength: 410.2, color: '#7c3aed', name: 'Violet (Hδ)', transition: 'n=6 → n=2' }
+        ]
+      },
+      helium: {
+        name: 'Helium',
+        symbol: 'He',
+        color: '#fbbf24',
+        lines: [
+          { wavelength: 706.5, color: '#b91c1c', name: 'Deep Red', transition: '3s¹S → 2p¹P' },
+          { wavelength: 667.8, color: '#dc2626', name: 'Red', transition: '3d¹D → 2p¹P' },
+          { wavelength: 587.6, color: '#eab308', name: 'Yellow', transition: '3d³D → 2p³P' },
+          { wavelength: 501.6, color: '#22c55e', name: 'Green', transition: '3p¹P → 2s¹S' },
+          { wavelength: 492.2, color: '#14b8a6', name: 'Cyan', transition: '4d¹D → 2p¹P' },
+          { wavelength: 471.3, color: '#3b82f6', name: 'Blue', transition: '4s³S → 2p³P' },
+          { wavelength: 447.1, color: '#6366f1', name: 'Indigo', transition: '4d³D → 2p³P' }
+        ]
+      }
+    };
+
+    // Configuration
+    const defaultConfig = {
+      title_text: 'Diffraction Grating Spectrometer',
+      instruction_text: 'Select a gas lamp and adjust the viewing angle to observe spectral lines',
+      primary_color: '#a855f7',
+      secondary_color: '#0f172a',
+      text_color: '#f1f5f9',
+      accent_color: '#f472b6',
+      surface_color: '#1e293b'
+    };
+
+    let config = { ...defaultConfig };
+    let currentGas = 'hydrogen';
+    let currentAngle = 20;
+
+    // Grating parameters
+    const gratingLinesPerMm = 600;
+    const gratingSpacing = 1e6 / gratingLinesPerMm; // in nm
+    const order = 1;
+
+    // Calculate diffraction angle for a given wavelength
+    function calculateAngle(wavelength) {
+      const sinTheta = (order * wavelength) / gratingSpacing;
+      if (sinTheta > 1 || sinTheta < -1) return null;
+      return Math.asin(sinTheta) * (180 / Math.PI);
+    }
+
+    // Calculate wavelength for a given angle
+    function calculateWavelength(angleDeg) {
+      const angleRad = angleDeg * (Math.PI / 180);
+      return gratingSpacing * Math.sin(angleRad) / order;
+    }
+
+    // Update the spectrometer visualization
+    function updateSpectrometer() {
+      const data = spectralData[currentGas];
+      const beamsGroup = document.getElementById('diffracted-beams');
+      const angleRad = currentAngle * (Math.PI / 180);
+      
+      beamsGroup.innerHTML = '';
+      
+      data.lines.forEach((line, index) => {
+        const lineAngle = calculateAngle(line.wavelength);
+        if (lineAngle === null) return;
+        
+        const lineAngleRad = lineAngle * (Math.PI / 180);
+        const endX = 196 + Math.cos(lineAngleRad) * 150;
+        const endY = 90 - Math.sin(lineAngleRad) * 100;
+        
+        const angleDiff = Math.abs(currentAngle - lineAngle);
+        const opacity = Math.max(0.1, 1 - angleDiff / 30);
+        
+        const beam = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        beam.setAttribute('x1', '196');
+        beam.setAttribute('y1', '90');
+        beam.setAttribute('x2', endX);
+        beam.setAttribute('y2', endY);
+        beam.setAttribute('stroke', line.color);
+        beam.setAttribute('stroke-width', angleDiff < 5 ? '4' : '2');
+        beam.setAttribute('opacity', opacity);
+        beamsGroup.appendChild(beam);
+        
+        if (angleDiff < 5) {
+          const glow = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          glow.setAttribute('x1', '196');
+          glow.setAttribute('y1', '90');
+          glow.setAttribute('x2', endX);
+          glow.setAttribute('y2', endY);
+          glow.setAttribute('stroke', line.color);
+          glow.setAttribute('stroke-width', '8');
+          glow.setAttribute('opacity', '0.3');
+          glow.setAttribute('filter', 'blur(3px)');
+          beamsGroup.insertBefore(glow, beamsGroup.firstChild);
+        }
+      });
+      
+      const arcPath = document.getElementById('angle-path');
+      const arcRadius = 30;
+      const endX = 196 + Math.cos(angleRad) * arcRadius;
+      const endY = 90 - Math.sin(angleRad) * arcRadius;
+      const largeArc = currentAngle > 180 ? 1 : 0;
+      arcPath.setAttribute('d', `M ${196 + arcRadius} 90 A ${arcRadius} ${arcRadius} 0 ${largeArc} 0 ${endX} ${endY}`);
+      
+      const labelX = 196 + Math.cos(angleRad / 2 * Math.PI / 180 + 0.3) * 45;
+      const labelY = 90 - Math.sin(angleRad / 2 + 0.3) * 25;
+      document.getElementById('angle-label').setAttribute('x', labelX);
+      document.getElementById('angle-label').setAttribute('y', labelY);
+    }
+
+    // Update spectral lines display
+    function updateSpectralLines() {
+      const data = spectralData[currentGas];
+      const container = document.getElementById('spectral-lines');
+      container.innerHTML = '';
+      
+      const currentWavelength = calculateWavelength(currentAngle);
+      
+      data.lines.forEach((line, index) => {
+        const lineAngle = calculateAngle(line.wavelength);
+        if (lineAngle === null) return;
+        
+        // Position based on difference from current wavelength
+        const wavelengthDiff = line.wavelength - currentWavelength;
+        const position = 50 + (wavelengthDiff / 400) * 100;
+        
+        const angleDiff = Math.abs(currentAngle - lineAngle);
+        const intensity = Math.max(0.2, 1 - angleDiff / 20);
+        const isActive = angleDiff < 3;
+        
+        const lineEl = document.createElement('div');
+        lineEl.className = 'spectral-line absolute';
+        lineEl.style.cssText = `
+          left: ${position}%;
+          top: 10%;
+          height: ${intensity * 80}%;
+          width: ${isActive ? '4px' : '2px'};
+          background: ${line.color};
+          box-shadow: 0 0 ${isActive ? '15px' : '8px'} ${line.color};
+          opacity: ${intensity};
+          transform: translateX(-50%);
+          transition: all 0.3s ease;
+        `;
+        container.appendChild(lineEl);
+      });
+    }
+
+    // Update viewing window position (stays in middle)
+    function updateViewingWindow() {
+      const viewingWindow = document.getElementById('viewing-window');
+      viewingWindow.style.left = '50%';
+    }
+
+    // Update line data table
+    function updateLineTable() {
+      const data = spectralData[currentGas];
+      const tbody = document.getElementById('line-table');
+      tbody.innerHTML = '';
+      
+      data.lines.forEach(line => {
+        const angle = calculateAngle(line.wavelength);
+        if (angle === null) return;
+        
+        const isActive = Math.abs(currentAngle - angle) < 3;
+        
+        const row = document.createElement('tr');
+        row.className = isActive ? 'bg-purple-900/30' : '';
+        row.innerHTML = `
+          <td class="py-2 px-2">
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 rounded-full" style="background: ${line.color}; box-shadow: 0 0 8px ${line.color};"></div>
+              <span class="text-slate-300">${line.name}</span>
+            </div>
+          </td>
+          <td class="py-2 px-2 text-cyan-400">${line.wavelength}</td>
+          <td class="py-2 px-2 text-purple-400">${angle.toFixed(1)}°</td>
+          <td class="py-2 px-2 text-slate-400 text-[11px]">${line.transition}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    // Update lamp appearance
+    function updateLamp() {
+      const data = spectralData[currentGas];
+      document.getElementById('lamp-stop1').setAttribute('stop-color', data.color);
+      document.getElementById('lamp-stop2').setAttribute('stop-color', data.color);
+      document.getElementById('spectrum-title').textContent = data.name;
+    }
+
+    // Update all visualizations
+    function updateAll() {
+      updateLamp();
+      updateSpectrometer();
+      updateSpectralLines();
+      updateViewingWindow();
+    }
+
+    // Event listeners
+    document.getElementById('btn-hydrogen').addEventListener('click', function() {
+      currentGas = 'hydrogen';
+      this.className = 'flex-1 py-3 px-4 rounded-lg font-medium transition-all duration-300 bg-gradient-to-r from-pink-600 to-rose-600 text-white shadow-lg shadow-pink-600/30';
+      document.getElementById('btn-helium').className = 'flex-1 py-3 px-4 rounded-lg font-medium transition-all duration-300 bg-slate-800 text-slate-400 hover:bg-slate-700';
+      updateAll();
+    });
+
+    document.getElementById('btn-helium').addEventListener('click', function() {
+      currentGas = 'helium';
+      this.className = 'flex-1 py-3 px-4 rounded-lg font-medium transition-all duration-300 bg-gradient-to-r from-amber-500 to-yellow-500 text-white shadow-lg shadow-amber-500/30';
+      document.getElementById('btn-hydrogen').className = 'flex-1 py-3 px-4 rounded-lg font-medium transition-all duration-300 bg-slate-800 text-slate-400 hover:bg-slate-700';
+      updateAll();
+    });
+
+    document.getElementById('angle-slider').addEventListener('input', function() {
+      currentAngle = parseFloat(this.value) / 10;
+      document.getElementById('angle-display').textContent = `${currentAngle.toFixed(1)}°`;
+      document.getElementById('calc-angle').value = currentAngle.toFixed(1);
+      updateWavelengthDisplay();
+      updateAll();
+    });
+
+    // Calculator functionality
+    function updateWavelengthDisplay() {
+      const angle = parseFloat(document.getElementById('calc-angle').value) || 0;
+      const wavelength = calculateWavelength(angle);
+      document.getElementById('calc-wavelength').textContent = wavelength.toFixed(1);
+    }
+
+    document.getElementById('calc-angle').addEventListener('input', function() {
+      updateWavelengthDisplay();
+      const autoSyncCheckbox = document.getElementById('auto-sync');
+      if (autoSyncCheckbox.checked) {
+        syncToAngle();
+      }
+    });
+
+    function syncToAngle() {
+      const angle = parseFloat(document.getElementById('calc-angle').value) || 0;
+      const clampedAngle = Math.max(0, Math.min(90, angle));
+      currentAngle = clampedAngle;
+      document.getElementById('angle-slider').value = clampedAngle * 10;
+      document.getElementById('angle-display').textContent = `${clampedAngle.toFixed(1)}°`;
+      document.getElementById('calc-angle').value = clampedAngle.toFixed(1);
+      updateWavelengthDisplay();
+      updateAll();
+    }
+
+    // Initial render
+    updateAll();
+  </script>
+ </body>
