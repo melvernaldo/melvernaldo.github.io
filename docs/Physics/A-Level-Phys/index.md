@@ -1,6 +1,7 @@
 ---
 layout: default
 title: CIE A Level Physics 9702
+parent: Physics
 nav_order: 2
 ---
 

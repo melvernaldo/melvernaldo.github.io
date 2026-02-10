@@ -18,7 +18,7 @@ parent: 3. Dynamics
 
 {:.lo}
 > 1. understand that mass is the property of an object that resists change in motion
-> 1. recall F = ma and solve problems using it, understanding that acceleration and resultant force are always in the same direction
+> 1. recall $F = ma$ and solve problems using it, understanding that acceleration and resultant force are always in the same direction
 > 1. define and use linear momentum as the product of mass and velocity
 > 1. define and use force as rate of change of momentum
 > 1. state and apply each of Newton’s laws of motion
