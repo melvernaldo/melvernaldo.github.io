@@ -3,12 +3,24 @@ description: Knowledge base for Physics and Mathematics
 theme: just-the-docs
 color_scheme: light
 
+
 url: https://melvernaldo.github.io
+
+permalink: pretty
 
 aux_links:
   About: /about.html
   GitHub Repository: https://github.com/melvernaldo/melvernaldo.github.io
 
+  
+# plugins:
+#   - jekyll-t4j
+
+# Footer last edited timestamp
+last_edit_timestamp: true # show or hide edit time - page must have `last_modified_date` defined in the frontmatter
+last_edit_time_format: "%b %e %Y at %I:%M %p" # uses ruby's time format: https://ruby-doc.org/stdlib-2.7.0/libdoc/time/rdoc/Time.html
+
+callouts_level: quiet # or loud
 callouts:
   objectives:
     title: Learning Objectives
@@ -27,3 +39,19 @@ callouts:
   warning:
     title: Warning
     color: red
+  lo:
+    title: Learning Objectives
+    color: green
+
+# markdown: kramdown
+
+# kramdown:
+#   # math_engine: mathjax
+#   syntax_highlighter_opts:
+#     block:
+#       line_numbers: false
+
+# t4j:
+#   packages:
+#     - chemfig
+#     - physics

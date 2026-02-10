@@ -1,0 +1,7 @@
+\begin{tikzpicture}[domain=0:7,scale=2] 
+\draw[very thin,color=gray] (-0.1,-1.5) grid (7,1.5);
+
+\draw[-stealth] (-0.2,0) -- (7.2,0) node[right] {$x$}; \draw[-stealth] (0,-1.2) -- (0,2.2) node[above] {$f(x)$};
+\draw[color=blue, samples=150]	plot (\x,{sin(\x r)})	node[right] {$f(x) = \sin x$}; 
+
+\end{tikzpicture}
