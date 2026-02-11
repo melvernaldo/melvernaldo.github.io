@@ -1,0 +1,110 @@
+\begin{tikzpicture}[
+    font=\small,
+    >=Stealth,
+    line width=0.8pt,
+    every node/.style={font=\sffamily}
+]
+
+    % --- Configuration ---
+    \def\w{6}       % Width of the grating
+    \def\h{5}       % Height of the grating
+    \def\d{0.3}     % Depth/Thickness (Perspective)
+    \def\ang{150}   % Angle of perspective (towards top-left)
+    \def\border{0.6} % Border width of the frame
+
+    % Colors extracted from the reference image style
+    \definecolor{platecolor}{RGB}{220, 225, 230} % Light blue-grey for the frame
+    \definecolor{screenbg}{RGB}{140, 145, 150}   % Darker grey for the inner area
+    \definecolor{linecolor}{RGB}{50, 50, 50}     % Dark grey for the grooves
+
+    % --- Coordinates ---
+    % Front Face Corners
+    \coordinate (FL) at (0,0);      % Front Bottom Left
+    \coordinate (FR) at (\w,0);     % Front Bottom Right
+    \coordinate (TR) at (\w,\h);    % Front Top Right
+    \coordinate (TL) at (0,\h);     % Front Top Left
+
+    % Back Face Corners (Calculated based on angle and depth)
+    \coordinate (BL)  at ($ (FL) + (\ang:\d) $);
+    \coordinate (BR)  at ($ (FR) + (\ang:\d) $);
+    \coordinate (BTR) at ($ (TR) + (\ang:\d) $);
+    \coordinate (BTL) at ($ (TL) + (\ang:\d) $);
+
+    % --- Drawing the Object ---
+
+    % 1. Side Thickness (Left)
+    \filldraw[fill=platecolor!85!black, draw=black] 
+        (TL) -- (BTL) -- (BL) -- (FL) -- cycle;
+
+    % 2. Top Thickness
+    \filldraw[fill=platecolor!95!white, draw=black] 
+        (TL) -- (TR) -- (BTR) -- (BTL) -- cycle;
+
+    % 3. Front Face (Main Frame)
+    \filldraw[fill=platecolor, draw=black, rounded corners=3pt] 
+        (FL) rectangle (TR);
+
+    % 4. Inner Grating Area (The dark grey rectangle)
+    \coordinate (InnerBL) at (\border, \border);
+    \coordinate (InnerTR) at (\w-\border, \h-\border);
+    
+    \filldraw[fill=screenbg, draw=black, rounded corners=1pt] 
+        (InnerBL) rectangle (InnerTR);
+
+    % 5. The Grooves
+    % We use a scope to clip the lines exactly to the inner rounded rectangle
+    \begin{scope}
+        \clip[rounded corners=1pt] (InnerBL) rectangle (InnerTR);
+        
+        % Loop to draw vertical lines
+        \foreach \x in {0.8, 0.95, ..., 5.2} {
+            % Main groove line
+            \draw[linecolor, thick] (\x, \border) -- (\x, \h-\border);
+            
+            % Highlight line for 3D effect (optional subtle detail)
+            \draw[white!30!screenbg, ultra thin] (\x+0.04, \border) -- (\x+0.04, \h-\border);
+        }
+    \end{scope}
+
+    % Redraw inner border to ensure it sits cleanly on top of the clipped lines
+    \draw[black, thick, rounded corners=1pt] (InnerBL) rectangle (InnerTR);
+
+
+    % --- Annotations/Labels ---
+
+    % Style for the text boxes
+    \tikzset{
+        labelbox/.style={
+            draw=black,
+            fill=white!95!gray,
+            align=left,
+            rectangle,
+            rounded corners=2pt,
+            inner sep=5pt,
+            drop shadow={opacity=0.2, shadow xshift=2pt, shadow yshift=-2pt}
+        }
+    }
+
+    % Label 1: Grooves description
+    \node[labelbox, anchor=west] (LabelGrooves) at (\w + 1.5, \h - 1.5) {
+        GROOVES ARE CUT OUT\\
+        AT REGULAR SPACINGS $d$
+    };
+
+    % Arrow for Label 1
+    % Connecting the label to one of the grooves in the upper right area
+    \draw[->, black] (LabelGrooves.west) to[out=180, in=10] (\w - 1.5, \h - 1.5);
+    \filldraw[black] (LabelGrooves.west) circle (1pt); % Anchor point dot
+
+
+    % Label 2: Diffraction Grating
+    \node[labelbox, anchor=west] (LabelTitle) at (\w + 0.5, 1) {
+        DIFFRACTION GRATING
+    };
+
+    % Arrow for Label 2
+    % Connecting the label to the bottom frame
+    \draw[->, black] (LabelTitle.west) to[out=180, in=-20] (\w/2 + 1, \border/2);
+    \filldraw[black] (LabelTitle.west) circle (1pt); % Anchor point dot
+
+\end{tikzpicture}
