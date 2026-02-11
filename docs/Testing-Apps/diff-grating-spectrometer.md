@@ -2,7 +2,7 @@
 layout: app
 title: Diffraction Grating Spectrometer
 parent: Testing Web Apps
-nav_order: 1
+nav_order: 2
 back_to_top: true
 back_to_top_text: "Back to top"
 ---

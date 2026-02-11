@@ -9,7 +9,8 @@ back_to_top_text: "Back to top"
 
 # **{{ page.title }}**
 
-<iframe width="800" height="550" src="/docs/Testing-Apps/circuitjs/circuitjs.html"></iframe>
+<iframe width=800 height=550 src="circuitjs.html?startCircuit=lrc.txt"></iframe>
+<!-- <iframe width="800" height="550" src="/docs/Testing-Apps/circuitjs/circuitjs.html"></iframe> -->
 
 
 **<a href="/docs/Testing-Apps/circuitjs/circuitjs.html">Full Screen version</a>**
