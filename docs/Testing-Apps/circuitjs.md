@@ -32,7 +32,7 @@ The "Circuits" menu contains a lot of sample circuits for you to try.
 
 ---
 
-## Disclaimer
+## Information and Credits
 
 CircuitJS1 is an electronic circuit simulator that runs in the browser.
 It was originally written by Paul Falstad as a Java Applet.
