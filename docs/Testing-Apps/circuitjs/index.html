@@ -1,0 +1,77 @@
+<meta name="viewport" content="width=820">
+<title>Circuit Simulator Applet</title>
+<link rel="SHORTCUT ICON" href="favicon.ico">
+
+<body>
+   <p>
+      <a href="/">melvernaldo.github.io</a> | <a href="circuitjs.html">Full Screen version</a>.
+      <hr>
+      <iframe width=800 height=550 src="circuitjs.html?startCircuit=lrc.txt"></iframe>
+
+   <p>
+      This is an electronic circuit simulator applet written by <a href="https://www.falstad.com/circuit/">Paul
+         Falstad</a> and <a href="http://lushprojects.com/circuitjs/">Iain Sharp</a>.
+   </p>
+   <p>
+      Check out Paul's web page for the offline version <a href="https://www.falstad.com/circuit/">here</a>.
+   </p>
+
+   <p>
+      When the applet starts up you will see
+      an animated schematic of a simple LRC circuit. The green
+      color indicates positive voltage.<span style="mso-spacerun: yes">&nbsp;
+      </span>The gray color indicates ground.<span style="mso-spacerun: yes">&nbsp;
+      </span>A red color indicates negative voltage.<span style="mso-spacerun:
+yes">&nbsp; </span>The moving yellow dots indicate current.</p>
+   </p>
+   <p>To turn a switch on or off, just click on it.<span style="mso-spacerun:
+yes">&nbsp; </span>If you move the mouse over any component of the circuit, you
+      will see a short description of that component and its current state in the
+      lower right corner of the window.<span style="mso-spacerun: yes">&nbsp; </span>To
+      modify a component,
+      move the mouse over it, click the right mouse button (or control-click
+      if you have a Mac) and select &#8220;Edit&#8221;.</p>
+   </p>
+   <p>
+      The "Circuits" menu contains a lot of sample circuits for you to try.
+   </p>
+   <p>
+      <a href="e-index.html">Index of Circuit Examples</a>.
+   </p>
+   <p>
+      <a href="http://www.falstad.com/mathphysics.html">More applets by Paul Falstad.</a>
+   </p>
+   <hr>
+   <h2>Disclaimer</h2>
+   <p>
+      CircuitJS1 is an electronic circuit simulator that runs in the browser.
+      It was originally written by Paul Falstad as a Java Applet.
+      It was adapted by Iain Sharp to run in the browser using GWT.
+   </p>
+   <p>
+      The source code for the applet embedded in this page is available on GitHub at <a
+         href="https://github.com/pfalstad/circuitjs1">https://github.com/pfalstad/circuitjs1</a>.
+   </p>
+   <hr>
+   <h2>License</h2>
+   <p>
+      This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public
+      License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any
+      later version.
+   </p>
+   <p>
+      This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+      warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+      details.
+   </p>
+   <p>
+      You should have received a copy of the GNU General Public License along with this program; if not, write to the
+      Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+   </p>
+   <script>
+      if (window.location.href.indexOf("circuit/#") > 0) {
+         var ix = window.location.href.indexOf("circuit/#");
+         window.location.assign(window.location.slice(0, ix) + "circuit/circuitjs.html?cct=");
+      }
+   </script>
+</body>
