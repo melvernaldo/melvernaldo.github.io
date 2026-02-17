@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magician Portfolio | Placeholder Name</title>
+
+<style>
+/* ---------- RESET ---------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: #0f0f14;
+  color: #f5f5f5;
+  overflow-x: hidden;
+}
+
+section {
+  padding: 4rem 10%;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+section.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+h1, h2, h3 { letter-spacing: 1px; }
+h2 { text-align: center; margin-bottom: 1.5rem; }
+
+p {
+  max-width: 800px;
+  margin: auto;
+  color: #d6d6d6;
+}
+
+/* ---------- HERO ---------- */
+header {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(circle at top, #1e1e2f, #0b0b12);
+}
+
+.hero {
+  animation: floatIn 1.5s ease forwards;
+}
+
+.hero h1 {
+  font-size: 3rem;
+}
+
+.hero span {
+  color: #ffd700;
+  text-shadow: 0 0 15px rgba(255,215,0,0.5);
+}
+
+.hero p {
+  margin: 1.5rem auto 2rem;
+  font-size: 1.2rem;
+}
+
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- BUTTON ---------- */
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.6rem;
+  border-radius: 30px;
+  background: #ffd700;
+  color: #0f0f14;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 rgba(255,215,0,0.7);
+}
+
+.btn:hover {
+  box-shadow: 0 0 25px rgba(255,215,0,0.6);
+  transform: translateY(-2px);
+}
+
+/* ---------- SERVICES ---------- */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.service-card {
+  background: #1c1c28;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.4s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.service-card h3 {
+  color: #ffd700;
+  margin-bottom: 1rem;
+}
+
+/* ---------- GALLERY ---------- */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 1.5rem;
+}
+
+.gallery-item {
+  padding-top: 70%;
+  background: linear-gradient(135deg, #2a2a3d, #1a1a25);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-item span {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.gallery-item:hover span {
+  opacity: 1;
+}
+
+/* ---------- TESTIMONIAL ---------- */
+.testimonial {
+  background: #1c1c28;
+  border-left: 4px solid #ffd700;
+  padding: 1.5rem;
+  max-width: 800px;
+  margin: 1.5rem auto;
+  border-radius: 8px;
+}
+
+/* ---------- CONTACT ---------- */
+.contact {
+  text-align: center;
+}
+
+.contact form {
+  max-width: 500px;
+  margin: 2rem auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+input, textarea {
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+}
+
+/* ---------- WHATSAPP FLOAT ---------- */
+.whatsapp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25D366;
+  color: white;
+  padding: 15px 18px;
+  border-radius: 50%;
+  font-size: 22px;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.7); }
+  70% { box-shadow: 0 0 0 20px rgba(37,211,102,0); }
+  100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.9rem;
+  background: #0b0b12;
+  color: #888;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="hero">
+    <h1>Placeholder Name<br><span>Professional Magician</span></h1>
+    <p>Unforgettable magic experiences for events, stages, and minds.</p>
+    <a href="#contact" class="btn">Book a Show</a>
+  </div>
+</header>
+
+<section>
+  <h2>About Me</h2>
+  <p>
+    Placeholder Name is a freelance magician specializing in close-up magic,
+    stage performances, and mind-reading experiences for all audiences.
+  </p>
+</section>
+
+<section>
+  <h2>Services</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <h3>Close-Up Magic</h3>
+      <p>Interactive sleight-of-hand performed inches away.</p>
+    </div>
+    <div class="service-card">
+      <h3>Stage Shows</h3>
+      <p>High-impact performances for large audiences.</p>
+    </div>
+    <div class="service-card">
+      <h3>Mentalism</h3>
+      <p>Mind-reading and psychological illusions.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Gallery</h2>
+  <div class="gallery-grid">
+    <div class="gallery-item"><span>Performance</span></div>
+    <div class="gallery-item"><span>Stage Magic</span></div>
+    <div class="gallery-item"><span>Audience Reaction</span></div>
+    <div class="gallery-item"><span>Close-Up</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>Testimonials</h2>
+  <div class="testimonial">
+    “Absolutely mind-blowing. Our guests were stunned!”
+    <br><strong>– Client Name</strong>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <h2>Contact</h2>
+  <p>Send a message directly via WhatsApp.</p>
+
+  <form onsubmit="sendWhatsApp(event)">
+    <input id="name" placeholder="Your Name" required>
+    <input id="email" placeholder="Your Email">
+    <textarea id="message" placeholder="Event details"></textarea>
+    <button class="btn">Send via WhatsApp</button>
+  </form>
+</section>
+
+<footer>
+  © <span id="year"></span> Placeholder Name • Freelance Magician
+</footer>
+
+<a class="whatsapp" href="#" onclick="openWhatsApp()">💬</a>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* Scroll reveal */
+const sections = document.querySelectorAll("section");
+window.addEventListener("scroll", () => {
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if (top < window.innerHeight - 100) {
+      sec.classList.add("show");
+    }
+  });
+});
+
+/* WhatsApp integration */
+const phoneNumber = "1234567890"; // REPLACE WITH YOUR NUMBER
+
+function sendWhatsApp(e) {
+  e.preventDefault();
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const message = document.getElementById("message").value;
+
+  const text = `Hello, my name is ${name}.
+Email: ${email}
+Message: ${message}`;
+
+  window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`, "_blank");
+}
+
+function openWhatsApp() {
+  window.open(`https://wa.me/${phoneNumber}`, "_blank");
+}
+</script>
+
+</body>
+</html>
