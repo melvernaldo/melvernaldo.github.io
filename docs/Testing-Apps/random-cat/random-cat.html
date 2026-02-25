@@ -2,21 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Random Cat Image</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-  </style>
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
   <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-[90%] text-center flex flex-col items-center">
     <h1 class="text-2xl font-bold mb-4">Random Cat</h1>
-    <div style="position: relative; width: 100%; margin-bottom: 1rem; height: 70vh;">
-      <img id="catImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="A cute cat" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity 0.3s; border-radius: 0.25rem;">
-      <div id="spinner" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-        <div style="width: 40px; height: 40px; border: 4px solid #f9a8d4; border-top-color: #ec4899; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+    <div class="relative w-full mb-4 h-[70vh]">
+      <img id="catImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="A cute cat" class="absolute inset-0 w-full h-full object-contain opacity-0 transition-opacity duration-300 rounded">
+      <div id="spinner" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div class="w-10 h-10 border-4 border-pink-200 border-t-pink-500 rounded-full animate-spin" aria-hidden="true"></div>
       </div>
     </div>
     <button id="newBtn"
@@ -31,6 +27,7 @@
     const spinner = document.getElementById('spinner');
     const status = document.getElementById('status');
     const btn = document.getElementById('newBtn');
+    const MIN_LOAD_DELAY_MS = 500;
     let loadingCat = false;
 
     function resetState() {
@@ -51,26 +48,26 @@
       btn.classList.add('bg-pink-500', 'hover:bg-pink-600');
     }
 
-    img.onload = () => {
+    img.addEventListener('load', () => {
       if (!loadingCat) return;
       loadingCat = false;
       clearErrorState();
       img.style.opacity = '1';
       resetState();
-    };
+    });
 
-    img.onerror = () => {
+    img.addEventListener('error', () => {
       if (!loadingCat) return;
       loadingCat = false;
       setErrorState();
-    };
+    });
 
     async function loadCat() {
       loadingCat = true;
       btn.disabled = true;
       img.style.opacity = '0';
       spinner.style.display = 'block';
-      spinner.offsetHeight;
+      spinner.offsetHeight; // Force reflow to restart animation
       clearErrorState();
       const startTime = Date.now();
       try {
@@ -78,17 +75,19 @@
         if (!res.ok) throw new Error('Request failed');
         const data = await res.json();
         const elapsed = Date.now() - startTime;
-        const minDelay = 500 - elapsed;
+        const minDelay = MIN_LOAD_DELAY_MS - elapsed;
         if (minDelay > 0) {
           await new Promise(resolve => setTimeout(resolve, minDelay));
         }
         img.src = data[0].url;
       } catch (e) {
+        loadingCat = false;
         setErrorState();
       }
     }
 
     btn.addEventListener('click', loadCat);
+    // Double rAF ensures DOM is fully painted before initial load
     requestAnimationFrame(() => {
       requestAnimationFrame(loadCat);
     });
