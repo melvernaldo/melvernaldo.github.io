@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Random Cat Image</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-[90%] text-center flex flex-col items-center">
+    <h1 class="text-2xl font-bold mb-4">Random Cat</h1>
+    <div style="position: relative; width: 100%; margin-bottom: 1rem; height: 70vh;">
+      <img id="catImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="A cute cat" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity 0.3s; border-radius: 0.25rem;">
+      <div id="spinner" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+        <div style="width: 40px; height: 40px; border: 4px solid #f9a8d4; border-top-color: #ec4899; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+      </div>
+    </div>
+    <button id="newBtn"
+            class="bg-pink-500 hover:bg-pink-600 disabled:bg-pink-300 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded transition-colors">
+      New Image
+    </button>
+    <p id="status" class="mt-2 text-sm text-gray-600"></p>
+  </div>
+
+  <script>
+    const img = document.getElementById('catImg');
+    const spinner = document.getElementById('spinner');
+    const status = document.getElementById('status');
+    const btn = document.getElementById('newBtn');
+    let loadingCat = false;
+
+    function resetState() {
+      spinner.style.display = 'none';
+      btn.disabled = false;
+    }
+
+    function setErrorState() {
+      status.textContent = 'Failed to load image. Try again.';
+      btn.classList.remove('bg-pink-500', 'hover:bg-pink-600');
+      btn.classList.add('bg-red-500', 'hover:bg-red-600');
+      resetState();
+    }
+
+    function clearErrorState() {
+      status.textContent = '';
+      btn.classList.remove('bg-red-500', 'hover:bg-red-600');
+      btn.classList.add('bg-pink-500', 'hover:bg-pink-600');
+    }
+
+    img.onload = () => {
+      if (!loadingCat) return;
+      loadingCat = false;
+      clearErrorState();
+      img.style.opacity = '1';
+      resetState();
+    };
+
+    img.onerror = () => {
+      if (!loadingCat) return;
+      loadingCat = false;
+      setErrorState();
+    };
+
+    async function loadCat() {
+      loadingCat = true;
+      btn.disabled = true;
+      img.style.opacity = '0';
+      spinner.style.display = 'block';
+      spinner.offsetHeight;
+      clearErrorState();
+      const startTime = Date.now();
+      try {
+        const res = await fetch('https://api.thecatapi.com/v1/images/search');
+        if (!res.ok) throw new Error('Request failed');
+        const data = await res.json();
+        const elapsed = Date.now() - startTime;
+        const minDelay = 500 - elapsed;
+        if (minDelay > 0) {
+          await new Promise(resolve => setTimeout(resolve, minDelay));
+        }
+        img.src = data[0].url;
+      } catch (e) {
+        setErrorState();
+      }
+    }
+
+    btn.addEventListener('click', loadCat);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(loadCat);
+    });
+  </script>
+</body>
+</html>
