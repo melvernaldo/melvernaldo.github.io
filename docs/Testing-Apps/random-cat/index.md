@@ -9,7 +9,7 @@ back_to_top_text: "Back to top"
 
 # **{{ page.title }}**
 
-<iframe width=800 height=550 src="index.html"></iframe>
+<iframe width=800 height=550 src="random-cat.html"></iframe>
 
 ## Information and Credits
 
