@@ -9,7 +9,7 @@ back_to_top_text: "Back to top"
 
 # **{{ page.title }}**
 
-Why? Because I like cats.
+Why? Because I like cats. Here's the [fullscreen version](random-cat.html).
 
 <iframe width=800 height=550 src="random-cat.html"></iframe>
 
