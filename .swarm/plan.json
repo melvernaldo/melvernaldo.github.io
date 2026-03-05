@@ -1,0 +1,200 @@
+{
+  "schema_version": "1.0.0",
+  "title": "Content Organization and UI/UX Enhancement",
+  "swarm": "default",
+  "current_phase": 1,
+  "phases": [
+    {
+      "id": 1,
+      "name": "Core Infrastructure - Status and Navigation",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "1.1",
+          "phase": 1,
+          "status": "pending",
+          "size": "small",
+          "description": "Add content status configuration to _config.yml with status badges for draft, in-progress, complete, and review states",
+          "depends": [],
+          "acceptance": "_config.yml contains callout definitions for status badges and status field is documented",
+          "files_touched": []
+        },
+        {
+          "id": "1.2",
+          "phase": 1,
+          "status": "pending",
+          "size": "small",
+          "description": "Create reusable status badge include at _includes/status-badge.html that renders based on page.status frontmatter",
+          "depends": [],
+          "acceptance": "Include file accepts status parameter and renders appropriate badge with correct styling",
+          "files_touched": []
+        },
+        {
+          "id": "1.3",
+          "phase": 1,
+          "status": "pending",
+          "size": "medium",
+          "description": "Add status badges to all existing content pages in Physics/A-Level-Phys section by updating frontmatter",
+          "depends": [],
+          "acceptance": "All 15+ Physics A-Level pages have status field set to appropriate value (complete, in-progress, or draft)",
+          "files_touched": []
+        },
+        {
+          "id": "1.4",
+          "phase": 1,
+          "status": "pending",
+          "size": "small",
+          "description": "Add status badges to all existing content pages in Physics/IFY-Phys and Physics/IGCSE-Phys sections",
+          "depends": [],
+          "acceptance": "All IFY-Phys and IGCSE-Phys index pages have status field set appropriately",
+          "files_touched": []
+        },
+        {
+          "id": "1.5",
+          "phase": 1,
+          "status": "pending",
+          "size": "small",
+          "description": "Add status badges to all existing content pages in Mathematics/A-Level-Maths section",
+          "depends": [],
+          "acceptance": "All 6 Mathematics module index pages have status field set appropriately",
+          "files_touched": []
+        },
+        {
+          "id": "1.6",
+          "phase": 1,
+          "status": "pending",
+          "size": "medium",
+          "description": "Create custom navigation styling in _sass/custom/navigation.scss to improve visual hierarchy with indentation and icons",
+          "depends": [],
+          "acceptance": "SCSS file compiles without errors and navigation shows improved visual hierarchy in browser",
+          "files_touched": []
+        },
+        {
+          "id": "1.7",
+          "phase": 1,
+          "status": "pending",
+          "size": "small",
+          "description": "Add breadcrumb navigation include at _includes/breadcrumbs.html and add to default layout",
+          "depends": [],
+          "acceptance": "Breadcrumbs display on all pages showing Home → Subject → Level → Topic path",
+          "files_touched": []
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Content Enhancement - Cross-Linking and Context",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "2.1",
+          "phase": 2,
+          "status": "pending",
+          "size": "medium",
+          "description": "Create related topics include at _includes/related-topics.html that displays linked pages based on tags",
+          "depends": [],
+          "acceptance": "Include accepts tags parameter and renders related pages section with working links",
+          "files_touched": []
+        },
+        {
+          "id": "2.2",
+          "phase": 2,
+          "status": "pending",
+          "size": "medium",
+          "description": "Add related topics section to complete Physics A-Level content pages by updating frontmatter with tags",
+          "depends": [],
+          "acceptance": "All complete Physics A-Level pages have tags frontmatter and related-topics include",
+          "files_touched": []
+        },
+        {
+          "id": "2.3",
+          "phase": 2,
+          "status": "pending",
+          "size": "small",
+          "description": "Create prerequisites callout include at _includes/prerequisites.html for displaying required prior knowledge",
+          "depends": [],
+          "acceptance": "Include file renders prerequisite callout with linked concepts when prerequisites frontmatter is set",
+          "files_touched": []
+        },
+        {
+          "id": "2.4",
+          "phase": 2,
+          "status": "pending",
+          "size": "small",
+          "description": "Add prerequisites callout to complex Physics topics that depend on prior knowledge",
+          "depends": [],
+          "acceptance": "At least 5 complex topics have prerequisites frontmatter set and callout displays correctly",
+          "files_touched": []
+        },
+        {
+          "id": "2.5",
+          "phase": 2,
+          "status": "pending",
+          "size": "medium",
+          "description": "Create progress indicator include for index pages showing completion percentage based on child page statuses",
+          "depends": [],
+          "acceptance": "Include calculates percentage from child pages and displays visual progress bar",
+          "files_touched": []
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Homepage and Mobile Optimization",
+      "status": "pending",
+      "tasks": [
+        {
+          "id": "3.1",
+          "phase": 3,
+          "status": "pending",
+          "size": "medium",
+          "description": "Redesign homepage with Quick Links section featuring direct access to popular topics and formulas",
+          "depends": [],
+          "acceptance": "Homepage displays Quick Links grid with at least 6 common entry points and works on mobile",
+          "files_touched": []
+        },
+        {
+          "id": "3.2",
+          "phase": 3,
+          "status": "pending",
+          "size": "small",
+          "description": "Add responsive CSS rules for MathJax equations to prevent overflow on mobile devices",
+          "depends": [],
+          "acceptance": "Mathematical equations scale appropriately and do not cause horizontal scroll on 375px viewport",
+          "files_touched": []
+        },
+        {
+          "id": "3.3",
+          "phase": 3,
+          "status": "pending",
+          "size": "small",
+          "description": "Create custom CSS file _sass/custom/mobile-fixes.scss for mobile-specific navigation and layout improvements",
+          "depends": [],
+          "acceptance": "CSS file compiles and navigation is usable on mobile devices with collapsed sidebar",
+          "files_touched": []
+        },
+        {
+          "id": "3.4",
+          "phase": 3,
+          "status": "pending",
+          "size": "small",
+          "description": "Document content patterns in AGENTS.md or new docs/ folder for consistent frontmatter usage",
+          "depends": [],
+          "acceptance": "Documentation file explains status field values, tags usage, and prerequisites format with examples",
+          "files_touched": []
+        },
+        {
+          "id": "3.5",
+          "phase": 3,
+          "status": "pending",
+          "size": "small",
+          "description": "Run Jekyll build verification to ensure all changes compile without errors",
+          "depends": [],
+          "acceptance": "Build completes successfully with no warnings or errors in console output",
+          "files_touched": []
+        }
+      ]
+    }
+  ],
+  "migration_status": "native"
+}
